@@ -3,7 +3,7 @@ from tensorflow.keras.utils import image_dataset_from_directory
 
 # Function to load the images for the train, validation and test datasets
 
-def load_images(path:str):
+def load_train_validation_images(path:str):
     '''
   Load images from the Dog Dataset of Kaggle.
   Returns X and y as numpy arrays

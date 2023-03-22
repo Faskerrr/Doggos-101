@@ -63,14 +63,3 @@ def plot_history(history, title='', axs=None, exp_name=""):
     ax2.set_title('Accuracy')
     ax2.legend()
     return (ax1, ax2)
-
-def getImage(url):
-  '''
-  Get an image provided its url and resize it.
-  The size of the image is 224x224.
-  '''
-  response = requests.get(url)
-  img = Image.open(BytesIO(response.content))
-  plt.imshow(img)
-  img = img.resize((224, 224))
-  return img
