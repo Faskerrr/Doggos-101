@@ -17,8 +17,6 @@ from tensorflow.keras.applications.inception_v3 import preprocess_input as incep
 # breed = os.environ.get('breed')
 breed = ['Chihuahua', 'Japanese_spaniel', 'Maltese_dog', 'Pekinese', 'Shih', 'Blenheim_spaniel', 'papillon', 'toy_terrier', 'Rhodesian_ridgeback', 'Afghan_hound', 'basset', 'beagle', 'bloodhound', 'bluetick', 'black', 'Walker_hound', 'English_foxhound', 'redbone', 'borzoi', 'Irish_wolfhound', 'Italian_greyhound', 'whippet', 'Ibizan_hound', 'Norwegian_elkhound', 'otterhound', 'Saluki', 'Scottish_deerhound', 'Weimaraner', 'Staffordshire_bullterrier', 'American_Staffordshire_terrier', 'Bedlington_terrier', 'Border_terrier', 'Kerry_blue_terrier', 'Irish_terrier', 'Norfolk_terrier', 'Norwich_terrier', 'Yorkshire_terrier', 'wire', 'Lakeland_terrier', 'Sealyham_terrier', 'Airedale', 'cairn', 'Australian_terrier', 'Dandie_Dinmont', 'Boston_bull', 'miniature_schnauzer', 'giant_schnauzer', 'standard_schnauzer', 'Scotch_terrier', 'Tibetan_terrier', 'silky_terrier', 'soft', 'West_Highland_white_terrier', 'Lhasa', 'flat', 'curly', 'golden_retriever', 'Labrador_retriever', 'Chesapeake_Bay_retriever', 'German_short', 'vizsla', 'English_setter', 'Irish_setter', 'Gordon_setter', 'Brittany_spaniel', 'clumber', 'English_springer', 'Welsh_springer_spaniel', 'cocker_spaniel', 'Sussex_spaniel', 'Irish_water_spaniel', 'kuvasz', 'schipperke', 'groenendael', 'malinois', 'briard', 'kelpie', 'komondor', 'Old_English_sheepdog', 'Shetland_sheepdog', 'collie', 'Border_collie', 'Bouvier_des_Flandres', 'Rottweiler', 'German_shepherd', 'Doberman', 'miniature_pinscher', 'Greater_Swiss_Mountain_dog', 'Bernese_mountain_dog', 'Appenzeller', 'EntleBucher', 'boxer', 'bull_mastiff', 'Tibetan_mastiff', 'French_bulldog', 'Great_Dane', 'Saint_Bernard', 'Eskimo_dog', 'malamute', 'Siberian_husky', 'affenpinscher', 'basenji', 'pug', 'Leonberg', 'Newfoundland', 'Great_Pyrenees', 'Samoyed', 'Pomeranian', 'chow', 'keeshond', 'Brabancon_griffon', 'Pembroke', 'Cardigan', 'toy_poodle', 'miniature_poodle', 'standard_poodle', 'Mexican_hairless', 'dingo', 'dhole', 'African_hunting_dog']
 
-
-
 def load_latest_model(loading_method):
     '''
     Function to load the latest model from local disk
@@ -42,9 +40,6 @@ def load_latest_model(loading_method):
     latest_model = keras_load_model(model_path, compile = False)
     return latest_model
 
-
-
-
 def compile_model(model):
     """
     Compile the model.
@@ -62,27 +57,25 @@ def compile_model(model):
     print("✅ Model compiled")
     return model
 
-
-
-
-def getImage(url:str):
+def getImage(url:str='', pic=None):
   '''
   Get an image provided its url and resize it.
   The size of the image is 224x224.
   '''
-  response = requests.get(url)
-  img = Image.open(BytesIO(response.content))
+  if url:
+    response = requests.get(url)
+    img = Image.open(BytesIO(response.content))
+  else:
+    img = Image.open(pic)
   plt.imshow(img)
+  plt.axis('off')
+  plt.show()
   img = img.resize((224, 224))
   return img
 
-
-
-
 # Check if this works with Inception
 # We could also change the name of the function
-def predict_labels(url:str, model, model_type):
-
+def predict_labels(model, model_type, *args, **kwargs):
     '''
     Function that will load the latest model from local disk and use it to predict the breed of the dog in the image.
     Args:
@@ -91,11 +84,7 @@ def predict_labels(url:str, model, model_type):
         breed_prediction: dictionary with the top 3 breeds predicted
         score_prediction: dictionary with the top 3 scores predicted
     '''
-# def preprocess(img, label, model_name):
-#     img = model_name.preprocess_input(img)
-#     return img, label
-
-    img = getImage(url)
+    img = getImage(*args, **kwargs)
     print("✅ Image successfully loaded")
     img = img_to_array(img)    #shape = (224, 224, 3)
     img = img.reshape((-1, 224, 224, 3))
@@ -125,9 +114,9 @@ def predict_labels(url:str, model, model_type):
         'third': breed[indexes[2]],
     }
     score_prediction = {
-        'first': round(predicts[0],2),
-        'second': round(predicts[1],2),
-        'third': round(predicts[2],2)
+        'first': float(round(predicts[0],2)),
+        'second': float(round(predicts[1],2)),
+        'third': float(round(predicts[2],2))
     }
     output = {'prediction': breed_prediction,
               'score': score_prediction}
