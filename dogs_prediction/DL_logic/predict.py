@@ -105,10 +105,10 @@ def predict_labels(url:str, model, model_type):
     print("✅ Model successfully loaded and compiled")
 
     if model_type == "resnet50":
-        resnet_preprocess_input(img)
+        img = resnet_preprocess_input(img)
         print("✅ Image successfully preprocessed (resnet50)")
     elif model_type == "inception_v3":
-        inception_preprocess_input(img)
+        img = inception_preprocess_input(img)
         print("✅ Image successfully preprocessed (inception_v3)")
     # img = resnet_preprocess_input(img)
     # print("✅ Image successfully preprocessed ")
