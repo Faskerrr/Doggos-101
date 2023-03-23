@@ -80,7 +80,9 @@ def getImage(url:str):
 
 
 # Check if this works with Inception
-def ResNet50_predict_labels(url:str, model):
+# We could also change the name of the function
+def predict_labels(url:str, model, model_type):
+
     '''
     Function that will load the latest model from local disk and use it to predict the breed of the dog in the image.
     Args:
@@ -89,20 +91,34 @@ def ResNet50_predict_labels(url:str, model):
         breed_prediction: dictionary with the top 3 breeds predicted
         score_prediction: dictionary with the top 3 scores predicted
     '''
+# def preprocess(img, label, model_name):
+#     img = model_name.preprocess_input(img)
+#     return img, label
+
     img = getImage(url)
     print("✅ Image successfully loaded")
     img = img_to_array(img)    #shape = (224, 224, 3)
     img = img.reshape((-1, 224, 224, 3))
     print("✅ Image successfully reshaped", img.shape)
+
     model = compile_model(model)
     print("✅ Model successfully loaded and compiled")
-    img = resnet_preprocess_input(img)
-    print("✅ Image successfully preprocessed")
+
+    if model_type == "resnet50":
+        resnet_preprocess_input(img)
+        print("✅ Image successfully preprocessed (resnet50)")
+    elif model_type == "inception_v3":
+        inception_preprocess_input(img)
+        print("✅ Image successfully preprocessed (inception_v3)")
+    # img = resnet_preprocess_input(img)
+    # print("✅ Image successfully preprocessed ")
     print("✅ Predicting breed...")
+
     res = model.predict(img)
     print("✅ Breed predicted")
     indexes = np.argsort(res)[0][-3:][::-1]
     predicts = np.sort(res)[0][::-1][0:3]
+
     breed_prediction = {
         'first': breed[indexes[0]],
         'second': breed[indexes[1]],
