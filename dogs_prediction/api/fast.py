@@ -15,15 +15,14 @@ app.add_middleware(
 )
 
 # preload the model
-app.state.model = predict.load_latest_model()
+app.state.model = predict.load_latest_model(loading_method='local')
 
 # add predict endpoint
 @app.get("/predict")
-def prediction(url: str):
+def prediction(url: str, model_type = 'resnet50'):
     model = app.state.model
     assert model is not None
-
-    return predict.predict_labels(url, model)
+    return predict.predict_labels(url, model, model_type)
 
 
 #root endpoint
