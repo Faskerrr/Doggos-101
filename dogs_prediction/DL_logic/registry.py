@@ -50,7 +50,7 @@ def load_latest_model():  # change to load_latest_model(stage="Production") if w
     '''
     # get the latest model from local
     # we need to create an .env file to store the path to the models folder
-    if MODEL_TARGET == "local":   # Change this to if MODEL_TARGET == "local":
+    if loading_method == "local":   # Change this to if MODEL_TARGET == "local":
         print(Fore.BLUE + f"\nLoad latest model from local registry..." + Style.RESET_ALL)
         local_model_directory = os.path.join(LOCAL_REGISTRY_PATH, "models") # this needs to be improved!
         local_model_files = os.listdir(local_model_directory)
@@ -62,7 +62,7 @@ def load_latest_model():  # change to load_latest_model(stage="Production") if w
         return latest_model
 
     # get the latest model from GCP
-    elif MODEL_TARGET == "gcs":  # Change this to if MODEL_TARGET == "gcs":
+    elif loading_method == "gcp":  # Change this to if MODEL_TARGET == "gcs":
         print(Fore.BLUE + f"\nLoad latest model from GCS..." + Style.RESET_ALL)
         from google.cloud import storage
         client = storage.Client()
