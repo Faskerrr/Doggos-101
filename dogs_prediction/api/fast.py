@@ -15,7 +15,7 @@ app.add_middleware(
 )
 
 # preload the model
-app.state.model = registry.load_latest_model(loading_method = 'local')
+app.state.model = registry.load_latest_model()
 
 # add predict endpoint
 @app.get("/predict")
