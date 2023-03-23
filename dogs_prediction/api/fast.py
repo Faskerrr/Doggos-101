@@ -21,8 +21,9 @@ app.state.model = predict.load_latest_model()
 @app.get("/predict")
 def prediction(url: str):
     model = app.state.model
-    predict.predict_breed(url, model)
     assert model is not None
+
+    return predict.predict_labels(url, model)
 
 
 #root endpoint
