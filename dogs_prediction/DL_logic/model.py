@@ -40,8 +40,9 @@ def compile_model(model: Model) -> Model:
     Returns:
         model: the compiled model
     """
+    opt = optimizers.Adam(learning_rate=1e-4)
     model.compile(
-        optimizer='adam',
+        optimizer=opt,
         loss='categorical_crossentropy',
         metrics=['accuracy']
     )
