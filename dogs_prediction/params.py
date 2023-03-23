@@ -13,9 +13,9 @@ INSTANCE = os.environ.get("INSTANCE")            # get INSTANCE from .env (name 
 
 
 ##################  CONSTANTS  #####################
-LOCAL_REGISTRY_PATH =  os.path.join(os.path.expanduser('~'), "code", "Faskerrr", "Doggos-101")
-#LOCAL_REGISTRY_PATH =  os.path.join(os.path.expanduser('~'), ".lewagon", "mlops", "training_outputs")
-# EXAMPLE: .lewagon\mlops\training_outputs" (metrics, models, params)
+LOCAL_REGISTRY_PATH =  os.path.join(os.path.expanduser('~'), "code", "Faskerrr", "Doggos-101")    # ~code/Faskerrr/Doggos-101
+
+BREED = ['Chihuahua', 'Japanese_spaniel', 'Maltese_dog', 'Pekinese', 'Shih', 'Blenheim_spaniel', 'papillon', 'toy_terrier', 'Rhodesian_ridgeback', 'Afghan_hound', 'basset', 'beagle', 'bloodhound', 'bluetick', 'black', 'Walker_hound', 'English_foxhound', 'redbone', 'borzoi', 'Irish_wolfhound', 'Italian_greyhound', 'whippet', 'Ibizan_hound', 'Norwegian_elkhound', 'otterhound', 'Saluki', 'Scottish_deerhound', 'Weimaraner', 'Staffordshire_bullterrier', 'American_Staffordshire_terrier', 'Bedlington_terrier', 'Border_terrier', 'Kerry_blue_terrier', 'Irish_terrier', 'Norfolk_terrier', 'Norwich_terrier', 'Yorkshire_terrier', 'wire', 'Lakeland_terrier', 'Sealyham_terrier', 'Airedale', 'cairn', 'Australian_terrier', 'Dandie_Dinmont', 'Boston_bull', 'miniature_schnauzer', 'giant_schnauzer', 'standard_schnauzer', 'Scotch_terrier', 'Tibetan_terrier', 'silky_terrier', 'soft', 'West_Highland_white_terrier', 'Lhasa', 'flat', 'curly', 'golden_retriever', 'Labrador_retriever', 'Chesapeake_Bay_retriever', 'German_short', 'vizsla', 'English_setter', 'Irish_setter', 'Gordon_setter', 'Brittany_spaniel', 'clumber', 'English_springer', 'Welsh_springer_spaniel', 'cocker_spaniel', 'Sussex_spaniel', 'Irish_water_spaniel', 'kuvasz', 'schipperke', 'groenendael', 'malinois', 'briard', 'kelpie', 'komondor', 'Old_English_sheepdog', 'Shetland_sheepdog', 'collie', 'Border_collie', 'Bouvier_des_Flandres', 'Rottweiler', 'German_shepherd', 'Doberman', 'miniature_pinscher', 'Greater_Swiss_Mountain_dog', 'Bernese_mountain_dog', 'Appenzeller', 'EntleBucher', 'boxer', 'bull_mastiff', 'Tibetan_mastiff', 'French_bulldog', 'Great_Dane', 'Saint_Bernard', 'Eskimo_dog', 'malamute', 'Siberian_husky', 'affenpinscher', 'basenji', 'pug', 'Leonberg', 'Newfoundland', 'Great_Pyrenees', 'Samoyed', 'Pomeranian', 'chow', 'keeshond', 'Brabancon_griffon', 'Pembroke', 'Cardigan', 'toy_poodle', 'miniature_poodle', 'standard_poodle', 'Mexican_hairless', 'dingo', 'dhole', 'African_hunting_dog']
 
 
 
@@ -23,15 +23,5 @@ LOCAL_REGISTRY_PATH =  os.path.join(os.path.expanduser('~'), "code", "Faskerrr",
 
 ################## VALIDATIONS #################
 env_valid_options = dict(
-    MODEL_TARGET=["local", "gcs"],
+    MODEL_TARGET=["local", "gcs", 'mlflow'],
 )
-
-
-#JIHED's code (same as os.path.join(LOCAL_REGISTRY_PATH, "models", "Resnet_50_epoch.h5")
-local_model_directory = os.path.join(os.getcwd(), '../models') # this needs to be improved!
-local_model_files = os.listdir(local_model_directory)
-local_model_paths = [os.path.join(local_model_directory, f) for f in local_model_files if f.endswith('.h5')]
-most_recent_model_path = max(local_model_paths, key=os.path.getctime)
-model_path = os.path.join(local_model_directory, most_recent_model_path)
-print("✅ Model loaded from local")
-#'/home/lilla/code/Faskerrr/Doggos-101/models/Resnet_50_epoch.h5'
