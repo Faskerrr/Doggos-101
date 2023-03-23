@@ -1,6 +1,6 @@
 # Our data folder
 raw_data/
-
+models/
 # DS_Store is basically metadata from finder on mac
 .DS_Store
 
@@ -108,7 +108,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+#.env
 .venv
 env/
 venv/
