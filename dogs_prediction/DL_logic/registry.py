@@ -34,7 +34,9 @@ from dogs_prediction.params import *
 #     return None
 
 
-def load_latest_model(loading_method = MODEL_TARGET):
+
+def load_latest_model(loading_method = MODEL_TARGET):  # change to load_latest_model(stage="Production") if we want to use Mflow
+
     '''
     Function to load the latest (uploaded) model from local disk or Google Cloud Storage.
     Depending on the value set to MODEL_TARGET in params.py.
@@ -42,7 +44,8 @@ def load_latest_model(loading_method = MODEL_TARGET):
     '''
     if loading_method == "local":   # Change this to if MODEL_TARGET == "local":
         print(Fore.BLUE + f"\nLoad latest model from local registry..." + Style.RESET_ALL)
-        local_model_directory = os.path.join(LOCAL_REGISTRY_PATH, "models") # this needs to be improved!
+        local_model_directory = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'models')
+        print(LOCAL_REGISTRY_PATH)
         local_model_files = os.listdir(local_model_directory)
         local_model_paths = [os.path.join(local_model_directory, f) for f in local_model_files if f.endswith('.h5')]
         most_recent_model_path = max(local_model_paths, key=os.path.getctime)
@@ -50,13 +53,13 @@ def load_latest_model(loading_method = MODEL_TARGET):
         print("✅ Model loaded from local")
         latest_model = keras_load_model(model_path, compile = False)
         return latest_model
-
+#local_model_directory = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'models')
     # get the latest model from GCP
     elif loading_method == "gcp":
         print(Fore.BLUE + f"\nLoad latest model from GCS..." + Style.RESET_ALL)
         from google.cloud import storage
         client = storage.Client()
-        blobs = list(client.get_bucket(BUCKET_NAME).list_blobs(prefix="model"))       #get_bucket() retrieves a bucket via a GET request// list_blobs() returns an iterator used to find blobs in the bucket.
+        blobs = list(client.get_bucket(BUCKET_NAME).list_blobs(prefix="models"))       #get_bucket() retrieves a bucket via a GET request// list_blobs() returns an iterator used to find blobs in the bucket.
         try:
             latest_blob = max(blobs, key=lambda x: x.updated)
             latest_model_path_to_save = os.path.join(LOCAL_REGISTRY_PATH, latest_blob.name)    #LOCAL_REGISTRY_PATH = ~/code/Faskerrr/Doggos-101
@@ -98,8 +101,3 @@ def load_selected_model(model_name='inception_v3', loading_method = MODEL_TARGET
             latest_model_path_to_save = os.path.join(LOCAL_REGISTRY_PATH, latest_blob.name)
             latest_blob.download_to_filename(latest_model_path_to_save)
             latest_model = keras_load_model(latest_model_path_to_save, compile = False)
-            print("✅ Latest model downloaded from cloud storage")
-            return latest_model
-        except:
-            print(f"\n❌ No model found on GCS bucket {BUCKET_NAME}")
-            return None
