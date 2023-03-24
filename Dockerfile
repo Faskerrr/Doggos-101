@@ -33,9 +33,15 @@ RUN pip install -r requirements.txt
 COPY dogs_prediction dogs_prediction
 COPY setup.py setup.py
 RUN pip install .
+COPY models models
+
+COPY container_credential.json container_credential.json
+#CMD export GOOGLE_APPLICATION_CREDENTIALS=container_credential.json
 
 #COPY Makefile Makefile
 #RUN make reset_local_files
 ### we need to change the uvicor command
-CMD uvicorn dogs_prediction.api.fast:app --host 0.0.0.0 --port $PORT
+CMD GOOGLE_APPLICATION_CREDENTIALS=container_credential.json uvicorn dogs_prediction.api.fast:app --host 0.0.0.0 --port $PORT
 # $DEL_END
+
+# copy credential json file to computer
