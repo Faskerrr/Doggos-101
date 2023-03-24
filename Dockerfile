@@ -34,8 +34,8 @@ COPY dogs_prediction dogs_prediction
 COPY setup.py setup.py
 RUN pip install .
 
-COPY Makefile Makefile
-RUN make reset_local_files
-
-CMD uvicorn taxifare.api.fast:app --host 0.0.0.0 --port $PORT
+#COPY Makefile Makefile
+#RUN make reset_local_files
+### we need to change the uvicor command
+CMD uvicorn dogs_prediction.api.fast:app --host 0.0.0.0 --port $PORT
 # $DEL_END
