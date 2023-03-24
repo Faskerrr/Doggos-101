@@ -7,12 +7,19 @@ from tensorflow.keras.preprocessing.image import img_to_array
 import numpy as np
 import os
 from keras.models import load_model as keras_load_model
+import base64
+
 
 from tensorflow.keras import optimizers
 from tensorflow.keras.applications.resnet50 import preprocess_input as resnet_preprocess_input
 from tensorflow.keras.applications.inception_v3 import preprocess_input as inception_preprocess_input
 
 from dogs_prediction.params import *
+
+# # Convert Base64 to Image
+# def b64_2_img(data):
+#     buff = BytesIO(base64.b64decode(data))
+#     return Image.open(buff)
 
 # shall we make a environment variable for this?
 # we can then call it this way
@@ -59,7 +66,7 @@ def compile_model(model):
     print("✅ Model compiled")
     return model
 
-def getImage(url:str='', pic=None, show=False):
+def getImage(img=None, url:str='', pic=None, show=False):
     '''
     Get an image provided its url and resize it.
     The size of the image is 224x224.
@@ -68,7 +75,7 @@ def getImage(url:str='', pic=None, show=False):
         response = requests.get(url)
         img = Image.open(BytesIO(response.content))
     else:
-        img = Image.open(pic)
+        img = img
     if show:
         plt.imshow(img)
         plt.axis('off')
