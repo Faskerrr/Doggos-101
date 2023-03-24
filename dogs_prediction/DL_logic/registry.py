@@ -9,8 +9,6 @@ from tensorflow import keras
 from keras.models import load_model as keras_load_model
 from dogs_prediction.params import *
 
-
-
 # def save_model(model: keras.Model = None) -> None:
 #     """
 #     Persist trained model locally on hard drive at f"{LOCAL_REGISTRY_PATH}/models/{timestamp}.h5"
@@ -41,9 +39,7 @@ from dogs_prediction.params import *
 #     return None
 
 
-
-
-def load_latest_model():  # change to load_latest_model(stage="Production") if we want to use Mflow
+def load_latest_model(loading_method = MODEL_TARGET):  # change to load_latest_model(stage="Production") if we want to use Mflow
     '''
     Function to load the latest model from local disk
     Requires to have a folder called "models" in the same directory
@@ -71,9 +67,8 @@ def load_latest_model():  # change to load_latest_model(stage="Production") if w
             latest_blob = max(blobs, key=lambda x: x.updated)
             latest_model_path_to_save = os.path.join(LOCAL_REGISTRY_PATH, latest_blob.name)    #LOCAL_REGISTRY_PATH = ~/code/Faskerrr/Doggos-101
             latest_blob.download_to_filename(latest_model_path_to_save)
-            latest_model = keras.models.load_model(latest_model_path_to_save)
+            latest_model = keras_load_model(latest_model_path_to_save, compile = False)
             print("✅ Latest model downloaded from cloud storage")
-            latest_model = keras_load_model(model_path, compile = False)
             return latest_model
         except:
             print(f"\n❌ No model found on GCS bucket {BUCKET_NAME}")
