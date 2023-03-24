@@ -1,12 +1,7 @@
 # registry.py is for loading and storing the model's weights from/to Cloud Storage
-
-import glob
 import os
-import time
-import pickle
 from colorama import Fore, Style
-from tensorflow import keras
-from keras.models import load_model as keras_load_model
+from tensorflow.keras.models import load_model as keras_load_model
 from dogs_prediction.params import *
 
 # def save_model(model: keras.Model = None) -> None:
@@ -39,13 +34,14 @@ from dogs_prediction.params import *
 #     return None
 
 
+
 def load_latest_model(loading_method = MODEL_TARGET):  # change to load_latest_model(stage="Production") if we want to use Mflow
+
     '''
-    Function to load the latest model from local disk
-    Requires to have a folder called "models" in the same directory
+    Function to load the latest (uploaded) model from local disk or Google Cloud Storage.
+    Depending on the value set to MODEL_TARGET in params.py.
+    For local loading, it requires to have a folder called "models" in the same directory.
     '''
-    # get the latest model from local
-    # we need to create an .env file to store the path to the models folder
     if loading_method == "local":   # Change this to if MODEL_TARGET == "local":
         print(Fore.BLUE + f"\nLoad latest model from local registry..." + Style.RESET_ALL)
         local_model_directory = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'models')
@@ -59,7 +55,7 @@ def load_latest_model(loading_method = MODEL_TARGET):  # change to load_latest_m
         return latest_model
 #local_model_directory = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'models')
     # get the latest model from GCP
-    elif loading_method == "gcp":  # Change this to if MODEL_TARGET == "gcs":
+    elif loading_method == "gcp":
         print(Fore.BLUE + f"\nLoad latest model from GCS..." + Style.RESET_ALL)
         from google.cloud import storage
         client = storage.Client()
@@ -74,3 +70,34 @@ def load_latest_model(loading_method = MODEL_TARGET):  # change to load_latest_m
         except:
             print(f"\n❌ No model found on GCS bucket {BUCKET_NAME}")
             return None
+
+def load_selected_model(model_name='inception_v3', loading_method = MODEL_TARGET):
+    '''
+    Function to load a specific model from local disk or Google Cloud Storage.
+    By default, it loads INCEPTION_V3 which had the best performance.
+    Depending on the value set to MODEL_TARGET in params.py.
+    For local loading, it requires to have a folder called "models" in the same directory.
+    '''
+    if loading_method == "local":
+        print(Fore.BLUE + f"\nLoad model '{model_name}' from local registry..." + Style.RESET_ALL)
+        local_model_directory = os.path.join(LOCAL_REGISTRY_PATH, "models")
+        model_path = os.path.join(local_model_directory, f"{model_name}.h5")
+        if not os.path.exists(model_path):
+            print(f"\n❌ No model with name '{model_name}' found in local models directory")
+            return None
+        else:
+            print("✅ Model loaded from local")
+            model = keras_load_model(model_path, compile = False)
+            return model
+
+    # get the latest model from GCP
+    elif loading_method == "gcp":
+        print(Fore.BLUE + f"\nLoad latest model from GCS..." + Style.RESET_ALL)
+        from google.cloud import storage
+        client = storage.Client()
+        blobs = list(client.get_bucket(BUCKET_NAME).list_blobs(prefix="model"))
+        try:
+            latest_blob = max(blobs, key=lambda x: x.updated)
+            latest_model_path_to_save = os.path.join(LOCAL_REGISTRY_PATH, latest_blob.name)
+            latest_blob.download_to_filename(latest_model_path_to_save)
+            latest_model = keras_load_model(latest_model_path_to_save, compile = False)
