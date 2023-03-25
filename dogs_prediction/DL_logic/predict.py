@@ -81,6 +81,7 @@ def getImage(img=None, url:str='', pic=None, show=False):
         plt.axis('off')
         plt.show()
     img = img.resize((224, 224))
+    print("✅ image resized")
     return img
 
 # Check if this works with Inception
