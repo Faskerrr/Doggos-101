@@ -7,7 +7,6 @@ from tensorflow.keras.preprocessing.image import img_to_array
 import numpy as np
 import os
 from keras.models import load_model as keras_load_model
-import base64
 
 
 from tensorflow.keras import optimizers
@@ -16,11 +15,7 @@ from tensorflow.keras.applications.inception_v3 import preprocess_input as incep
 
 from dogs_prediction.params import *
 
-# # Convert Base64 to Image
-# def b64_2_img(data):
-#     buff = BytesIO(base64.b64decode(data))
-#     return Image.open(buff)
-
+# TODO:
 # shall we make a environment variable for this?
 # we can then call it this way
 # breed = os.environ.get('breed')
@@ -29,9 +24,14 @@ breed = BREED
 def load_latest_model(loading_method):
     '''
     Function to load the latest model from local disk
-    Requires to have a folder called "models" in the same directory
+    Args:
+        loading_method: 'local' or 'gcp'
+        if set to local requires to have a folder called "models" in the same directory
+    Returns:
+        latest_model: model loaded with the specified method
     '''
-    # get the latest model from local
+    # TODO:
+    # make it possible to choose the model
     # we need to create an .env file to store the path to the models folder
     if loading_method == "local":
         local_model_directory = os.path.join(os.getcwd(), '../models') # this needs to be improved!
@@ -66,13 +66,15 @@ def compile_model(model):
     print("✅ Model compiled")
     return model
 
-def getImage(img=None, url:str='', pic=None, show=False):
+def getImage(img=None, url_with_pic:str='', show=False):
     '''
     Get an image provided its url and resize it.
     The size of the image is 224x224.
     '''
-    if url:
-        response = requests.get(url)
+    print(f"✅ get image received: img={img is not None}, url_with_pic={url_with_pic is not None}")
+    if url_with_pic:
+        print(f"✅ got image url: {url_with_pic}")
+        response = requests.get(url_with_pic)
         img = Image.open(BytesIO(response.content))
     else:
         img = img
@@ -84,6 +86,7 @@ def getImage(img=None, url:str='', pic=None, show=False):
     print("✅ image resized")
     return img
 
+# TODO:
 # Check if this works with Inception
 # We could also change the name of the function
 def predict_labels(model, model_type, *args, **kwargs):
