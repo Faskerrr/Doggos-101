@@ -1,7 +1,7 @@
 from dogs_prediction.DL_logic import predict, registry
-
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from PIL import Image
 
 
 
@@ -11,22 +11,32 @@ app = FastAPI()
 # Optional, good practice for dev purposes. Allow all middlewares
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
+    allow_origins=['*'],  # Allows all origins
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=['*'],  # Allows all methods
+    allow_headers=['*'],  # Allows all headers
 )
 
 # preload the model
 app.state.model = registry.load_latest_model()
 
 
-# add predict endpoint
-@app.get("/predict")
-def prediction(url: str='https://www.purina.co.uk/sites/default/files/2022-07/French-Bulldog.jpg', model_type = 'inception_v3'):
+
+# predicts from url provided by user
+@app.get('/predict_url')
+def prediction(url_with_pic, model_type='inception_v3'):
     model = app.state.model
     assert model is not None
-    prediction = predict.predict_labels(model, model_type, url = url)
+    prediction = predict.predict_labels(model, model_type, url_with_pic=url_with_pic)
+    return prediction
+
+
+# predicts from file provided by user
+@app.post('/predict_file')
+def prediction(file: UploadFile | None = None, model_type='inception_v3'):
+    model = app.state.model
+    assert model is not None
+    prediction = predict.predict_labels(model, model_type, img=Image.open(file.file))
     return prediction
 
 
@@ -39,6 +49,6 @@ def image_prediction(image, model_type = 'inception_v3'):
 
 
 #root endpoint
-@app.get("/")
+@app.get('/')
 def root():
-    return dict(greeting="Bark!")
+    return dict(greeting='Bark!')

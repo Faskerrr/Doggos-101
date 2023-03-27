@@ -101,3 +101,6 @@ def load_selected_model(model_name='inception_v3', loading_method = MODEL_TARGET
             latest_model_path_to_save = os.path.join(LOCAL_REGISTRY_PATH, latest_blob.name)
             latest_blob.download_to_filename(latest_model_path_to_save)
             latest_model = keras_load_model(latest_model_path_to_save, compile = False)
+        except:
+            print(f"\n❌ No model found on GCS bucket {BUCKET_NAME}")
+            return None

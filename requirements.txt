@@ -35,5 +35,8 @@ fastapi
 pytz
 uvicorn
 
+# need for file upload into api
+python-multipart
+
 # for compatibility with tensorflow 2.10.0
 protobuf<3.20.0
