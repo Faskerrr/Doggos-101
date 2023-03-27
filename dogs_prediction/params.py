@@ -14,7 +14,7 @@ INSTANCE = os.environ.get("INSTANCE")            # get INSTANCE from .env (name 
 
 ##################  CONSTANTS  #####################
 LOCAL_REGISTRY_PATH =  os.path.join(os.path.expanduser('~'), "code", "Faskerrr", "Doggos-101")    # ~code/Faskerrr/Doggos-101
-
+#os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'models')
 # list of the 120 dog breeds
 BREED = ['Chihuahua', 'Japanese_spaniel', 'Maltese_dog', 'Pekinese', 'Shih',
          'Blenheim_spaniel', 'papillon', 'toy_terrier', 'Rhodesian_ridgeback',
