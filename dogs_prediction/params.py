@@ -16,23 +16,23 @@ INSTANCE = os.environ.get("INSTANCE")            # get INSTANCE from .env (name 
 LOCAL_REGISTRY_PATH =  os.path.join(os.path.expanduser('~'), "code", "Faskerrr", "Doggos-101")    # ~code/Faskerrr/Doggos-101
 #os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'models')
 # list of the 120 dog breeds
-BREED = ['Chihuahua', 'Japanese_spaniel', 'Maltese_dog', 'Pekinese', 'Shih',
+BREED = ['Chihuahua', 'Japanese_spaniel', 'Maltese_dog', 'Pekinese', 'shih-tzu',
          'Blenheim_spaniel', 'papillon', 'toy_terrier', 'Rhodesian_ridgeback',
-         'Afghan_hound', 'basset', 'beagle', 'bloodhound', 'bluetick', 'black',
+         'Afghan_hound', 'basset', 'beagle', 'bloodhound', 'bluetick', 'black-and-tan_coonhound',
          'Walker_hound', 'English_foxhound', 'redbone', 'borzoi', 'Irish_wolfhound',
          'Italian_greyhound', 'whippet', 'Ibizan_hound', 'Norwegian_elkhound',
          'otterhound', 'Saluki', 'Scottish_deerhound', 'Weimaraner',
          'Staffordshire_bullterrier', 'American_Staffordshire_terrier',
          'Bedlington_terrier', 'Border_terrier', 'Kerry_blue_terrier',
          'Irish_terrier', 'Norfolk_terrier', 'Norwich_terrier',
-         'Yorkshire_terrier', 'wire', 'Lakeland_terrier',
+         'Yorkshire_terrier', 'wire-haired_fox_terrier', 'Lakeland_terrier',
          'Sealyham_terrier', 'Airedale', 'cairn', 'Australian_terrier',
          'Dandie_Dinmont', 'Boston_bull', 'miniature_schnauzer',
          'giant_schnauzer', 'standard_schnauzer', 'Scotch_terrier',
-         'Tibetan_terrier', 'silky_terrier', 'soft',
-         'West_Highland_white_terrier', 'Lhasa', 'flat', 'curly',
+         'Tibetan_terrier', 'silky_terrier', 'soft-coated_wheaten_terrier',
+         'West_Highland_white_terrier', 'Lhasa', 'flat-coated_retriever', 'curly-coated_retriever',
          'golden_retriever', 'Labrador_retriever', 'Chesapeake_Bay_retriever',
-         'German_short', 'vizsla', 'English_setter', 'Irish_setter',
+         'german_short-haired_pointer', 'vizsla', 'English_setter', 'Irish_setter',
          'Gordon_setter', 'Brittany_spaniel', 'clumber', 'English_springer',
          'Welsh_springer_spaniel', 'cocker_spaniel', 'Sussex_spaniel',
          'Irish_water_spaniel', 'kuvasz', 'schipperke', 'groenendael',
@@ -49,10 +49,7 @@ BREED = ['Chihuahua', 'Japanese_spaniel', 'Maltese_dog', 'Pekinese', 'Shih',
          'dingo', 'dhole', 'African_hunting_dog']
 
 
-
-
-
 ################## VALIDATIONS #################
 env_valid_options = dict(
-    MODEL_TARGET=["local", "gcs", 'mlflow'],
+    MODEL_TARGET=["local", "gcs"],
 )

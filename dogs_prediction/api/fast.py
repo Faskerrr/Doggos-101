@@ -18,7 +18,7 @@ app.add_middleware(
 )
 
 # preload the model
-app.state.model = registry.load_latest_model()
+app.state.model = registry.load_selected_model()
 
 
 
@@ -33,7 +33,7 @@ def prediction(url_with_pic, model_type='inception_v3'):
 
 # predicts from file provided by user
 @app.post('/predict_file')
-def prediction(file: UploadFile | None = None, model_type='inception_v3'):
+def prediction(file: UploadFile, model_type='inception_v3'):
     model = app.state.model
     assert model is not None
     prediction = predict.predict_labels(model, model_type, img=Image.open(file.file))
