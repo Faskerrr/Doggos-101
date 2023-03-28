@@ -51,6 +51,7 @@ def load_latest_model(loading_method = MODEL_TARGET):  # change to load_latest_m
         most_recent_model_path = max(local_model_paths, key=os.path.getctime)
         model_path = os.path.join(local_model_directory, most_recent_model_path)
         print("✅ Model loaded from local")
+        print(model_path)
         latest_model = keras_load_model(model_path, compile = False)
         return latest_model
 #local_model_directory = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'models')
