@@ -5,49 +5,12 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from tensorflow.keras.preprocessing.image import img_to_array
 import numpy as np
-import os
-from keras.models import load_model as keras_load_model
-
-
 from tensorflow.keras import optimizers
 from tensorflow.keras.applications.resnet50 import preprocess_input as resnet_preprocess_input
 from tensorflow.keras.applications.inception_v3 import preprocess_input as inception_preprocess_input
-
 from dogs_prediction.params import *
 
-# TODO:
-# shall we make a environment variable for this?
-# we can then call it this way
-# breed = os.environ.get('breed')
 breed = BREED
-
-def load_latest_model(loading_method):
-    '''
-    Function to load the latest model from local disk
-    Args:
-        loading_method: 'local' or 'gcp'
-        if set to local requires to have a folder called "models" in the same directory
-    Returns:
-        latest_model: model loaded with the specified method
-    '''
-    # TODO:
-    # make it possible to choose the model
-    # we need to create an .env file to store the path to the models folder
-    if loading_method == "local":
-        local_model_directory = os.path.join(os.getcwd(), '../models') # this needs to be improved!
-        local_model_files = os.listdir(local_model_directory)
-        local_model_paths = [os.path.join(local_model_directory, f) for f in local_model_files if f.endswith('.h5')]
-        most_recent_model_path = max(local_model_paths, key=os.path.getctime)
-        model_path = os.path.join(local_model_directory, most_recent_model_path)
-        print("✅ Model loaded from local")
-
-    # get the latest model from GCP
-    elif loading_method == "gcp":
-        model_path = "TO BE ADDED LATER"
-        print("✅ Model loaded from the cloud")
-
-    latest_model = keras_load_model(model_path, compile = False)
-    return latest_model
 
 def compile_model(model):
     """
@@ -86,9 +49,6 @@ def getImage(img=None, url_with_pic:str='', show=False):
     print("✅ image resized")
     return img
 
-# TODO:
-# Check if this works with Inception
-# We could also change the name of the function
 def predict_labels(model, model_type, *args, **kwargs):
     '''
     Function that will load the latest model from local disk and use it to predict the breed of the dog in the image.
