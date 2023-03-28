@@ -18,7 +18,7 @@ app.add_middleware(
 )
 
 # preload the model
-app.state.model = registry.load_latest_model()
+app.state.model = registry.load_selected_model()
 
 
 
