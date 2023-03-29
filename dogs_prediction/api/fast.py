@@ -3,8 +3,6 @@ from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image
 
-
-
 #iniate api
 app = FastAPI()
 
@@ -36,16 +34,8 @@ def prediction(url_with_pic, model_type='inception_v3'):
 def prediction(file: UploadFile, model_type='inception_v3'):
     model = app.state.model
     assert model is not None
-    prediction = predict.predict_labels(model, model_type, img=Image.open(file.file))
+    prediction = predict.predict_labels(model, model_type, img=file.file)
     return prediction
-
-
-@app.post("/predict")
-def image_prediction(image, model_type = 'inception_v3'):
-    model = app.state.model
-    assert model is not None
-    #prediction = predict.predict_labels(model, model_type, url = url)
-    #return prediction
 
 
 #root endpoint
