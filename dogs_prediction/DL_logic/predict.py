@@ -1,4 +1,3 @@
-# Import libraries
 import requests
 from io import BytesIO
 from PIL import Image
@@ -36,11 +35,10 @@ def getImage(img=None, url_with_pic:str='', show=False):
     '''
     print(f"✅ get image received: img={img is not None}, url_with_pic={url_with_pic is not None}")
     if url_with_pic:
-        print(f"✅ got image url: {url_with_pic}")
         response = requests.get(url_with_pic)
-        img = Image.open(BytesIO(response.content))
+        img = Image.open(BytesIO(response.content)).convert("RGB")
     else:
-        img = img
+        img = Image.open(img).convert("RGB")
     if show:
         plt.imshow(img)
         plt.axis('off')
@@ -73,8 +71,6 @@ def predict_labels(model, model_type, *args, **kwargs):
     elif model_type == "inception_v3":
         img = inception_preprocess_input(img)
         print("✅ Image successfully preprocessed (inception_v3)")
-    # img = resnet_preprocess_input(img)
-    # print("✅ Image successfully preprocessed ")
     print("✅ Predicting breed...")
 
     res = model.predict(img)
