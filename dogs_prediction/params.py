@@ -1,21 +1,15 @@
 # params.py contains the project's global variables/parameters (including variables from .env)
-
 import os
-import numpy as np
-
-# WE NEED TO CREATE a .env file
 
 ##################  VARIABLES  ##################
 MODEL_TARGET = os.environ.get("MODEL_TARGET")    # get MODEL_TARGET from .env (e.g. local, gcs, mflow)
 GCP_PROJECT = os.environ.get("GCP_PROJECT")      # get GCP_PROJECT from .env (personal GCP project for this bootcamp)
 BUCKET_NAME = os.environ.get("BUCKET_NAME")      # get BUCKET_NAME from .env (cloud storage)
 INSTANCE = os.environ.get("INSTANCE")            # get INSTANCE from .env (name of our Virtual Machine instance) NOT SURE IF WE NEED
-
-
 ##################  CONSTANTS  #####################
 LOCAL_REGISTRY_PATH =  os.path.join(os.path.expanduser('~'), "code", "Faskerrr", "Doggos-101")    # ~code/Faskerrr/Doggos-101
-#os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'models')
-# list of the 120 dog breeds
+
+##################  DOG BREEDS  #####################
 BREED = ['Chihuahua', 'Japanese_spaniel', 'Maltese_dog', 'Pekinese', 'shih-tzu',
          'Blenheim_spaniel', 'papillon', 'toy_terrier', 'Rhodesian_ridgeback',
          'Afghan_hound', 'basset', 'beagle', 'bloodhound', 'bluetick', 'black-and-tan_coonhound',
@@ -47,7 +41,6 @@ BREED = ['Chihuahua', 'Japanese_spaniel', 'Maltese_dog', 'Pekinese', 'shih-tzu',
          'chow', 'keeshond', 'Brabancon_griffon', 'Pembroke', 'Cardigan',
          'toy_poodle', 'miniature_poodle', 'standard_poodle', 'Mexican_hairless',
          'dingo', 'dhole', 'African_hunting_dog']
-
 
 ################## VALIDATIONS #################
 env_valid_options = dict(
