@@ -19,7 +19,7 @@ The original dataset is available [here](http://vision.stanford.edu/aditya86/Ima
 
 ## The Model 🧠
 
-After testing different models, we decided to use an **InceptionV3** [model](https://www.tensorflow.org/api_docs/python/tf/keras/applications/inception_v3/InceptionV3), which is a pre-trained model on the ImageNet dataset. We then added a custom layer on top of it, which is a fully connected layer with 120 outputs (one for each class of dog breed). We then trained the model on the Stanford Dogs Dataset for 20 epochs, using a batch size of 32 and an Adam optimizer with a learning rate of 0.0001.
+After testing different models, we decided to use an **InceptionV3** [model](https://www.tensorflow.org/api_docs/python/tf/keras/applications/inception_v3/InceptionV3), which is a pre-trained model on the ImageNet dataset. We then added two customs layer on top of it, a dense layer (256 neurons) and a prediction layer which is a fully connected layer with 120 outputs (one for each class of dog breed). We then trained the model on the Stanford Dogs Dataset for 20 epochs, using a batch size of 32 and an Adam optimizer with a learning rate of 0.0001.
 
 ### The Metrics ⏱️
 
