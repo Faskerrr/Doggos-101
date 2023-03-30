@@ -19,7 +19,7 @@ The original dataset is available [here](http://vision.stanford.edu/aditya86/Ima
 
 ## The Model 🧠
 
-After testing different models, we decided to use an **InceptionV3** [model](https://www.tensorflow.org/api_docs/python/tf/keras/applications/inception_v3/InceptionV3), which is a pre-trained model on the ImageNet dataset. We then added a custom layer on top of it, which is a fully connected layer with 120 outputs (one for each class of dog breed). We then trained the model on the Stanford Dogs Dataset for 10 epochs, using a batch size of 32 and an Adam optimizer with a learning rate of 0.0001.
+After testing different models, we decided to use an **InceptionV3** [model](https://www.tensorflow.org/api_docs/python/tf/keras/applications/inception_v3/InceptionV3), which is a pre-trained model on the ImageNet dataset. We then added a custom layer on top of it, which is a fully connected layer with 120 outputs (one for each class of dog breed). We then trained the model on the Stanford Dogs Dataset for 20 epochs, using a batch size of 32 and an Adam optimizer with a learning rate of 0.0001.
 
 ### The Metrics ⏱️
 
@@ -28,6 +28,18 @@ We used the **accuracy** as a metric to evaluate the model. The accuracy is the 
 ### Improving the accuracy of the model 💪
 
 We used data augmentation to perform transformation on the training dataset images. This allowed us to increase the size of the training dataset.
+
+```
+augment_model_1 = Sequential([
+    layers.Input(shape = input_shape),
+    augmentation,
+    base_model,
+    layers.Flatten(),
+    layers.Dense(256, activation="relu"),
+    layers.Dense(120, activation='softmax')
+])
+```
+
 
 ### Computer vision 💻
 
