@@ -70,6 +70,13 @@ Hence together with the prediction, we provide also information about:
 
 - etc.
 
+## Limitations
+
+The current version of the model is trained on a dataset of 120 breeds (classes/targets). The list of the breeds can be found in the dogs_prediction/params.py.
+
+This version is not that accurate predicting the mixed breeds.
+
+For the best performance it is recommended to provide a picture with a dog in relatively common position (sitting, running, lying on the belly) and with a face visible. 
 
 ## Important remarks 🚨
 
