@@ -85,3 +85,7 @@ For the best performance it is recommended to provide a picture with a dog in re
 - The information provided by the app is not a substitute for professional advice. If you have any concerns about your dog’s health or behaviour, please consult your vet or a professional dog trainer.
 
 - It is important to understand that this information is very general but each dog is special.
+
+### Links
+
+Web interface is based on streamlit and located in a separate repository: https://github.com/Faskerrr/Doggos-101-front.
