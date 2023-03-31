@@ -60,13 +60,15 @@ Here are some examples of predictions:
 Beside the predictions, we also scrapped the information of the [UK Kennel Club website](https://www.thekennelclub.org.uk/) to provide more information about the dog breed.
 Hence together with the prediction, we provide also information about:
 
-- the lifespan
+- lifespan
 
-- The recommended duration of exercise for the dog
+- recommended duration of exercise for the dog
 
-- The frequency of grooming
+- frequency of grooming
 
-- other informations...
+- size of an adult dog
+
+- etc.
 
 
 ## Important remarks 🚨
