@@ -1,4 +1,4 @@
-# Doggos-101 - The new dog breed classification App
+# Doggos-101 - Dog breed classification App
 
 <img src='https://media0.giphy.com/media/ONip6r6SCtpZu/giphy.gif?cid=ecf05e471rmr22enswpoz3le07gztqqjpvzll4nii44o6y6p&rid=giphy.gif&ct=s'  width="100">
 
