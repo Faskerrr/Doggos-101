@@ -1,6 +1,6 @@
 # Doggos-101 - The new dog breed classification App
 
-![](https://media0.giphy.com/media/ONip6r6SCtpZu/giphy.gif?cid=ecf05e471rmr22enswpoz3le07gztqqjpvzll4nii44o6y6p&rid=giphy.gif&ct=s)
+<img src=https://media0.giphy.com/media/ONip6r6SCtpZu/giphy.gif?cid=ecf05e471rmr22enswpoz3le07gztqqjpvzll4nii44o6y6p&rid=giphy.gif&ct=s  width="100">
 
 Our App is available 🐶 [here](https://doggos-101.streamlit.app/) 🐶
 
@@ -12,18 +12,18 @@ The goal of this project was to create an app capable of identifying the breed o
 To this end, we used a Convolutional Neural Network (CNN) trained on the [Stanford Dogs Dataset](http://vision.stanford.edu/aditya86/ImageNetDogs/).
 Once the network was trained, we packaged the network into a Docker container to make it available as a web app via Google Cloud Run.
 
-## The Dataset 🐶
+## Dataset 🐶
 
 The original dataset is available [here](http://vision.stanford.edu/aditya86/ImageNetDogs/). It contains 120 different classes of dog breeds, each class containing at least 100 images, which makes a total of 20,580 images.
 
 ![](docs/kaggle_datasets.png)
 
 
-## The Model 🧠
+## Model 🧠
 
 After testing different models, we decided to use an **InceptionV3** [model](https://www.tensorflow.org/api_docs/python/tf/keras/applications/inception_v3/InceptionV3), which is a pre-trained model on the ImageNet dataset. We then added two customs layer on top of it, a dense layer (256 neurons) and a prediction layer which is a fully connected layer with 120 outputs (one for each class of dog breed). We then trained the model on the Stanford Dogs Dataset for 20 epochs, using a batch size of 32 and an Adam optimizer with a learning rate of 0.0001.
 
-### The Metrics ⏱️
+### Metrics ⏱️
 
 We used the **accuracy** as a metric to evaluate the model. The accuracy is the number of correct predictions divided by the total number of predictions. The accuracy of our model is **85.3%**.
 
