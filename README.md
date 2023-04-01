@@ -1,6 +1,8 @@
-# Doggos-101 - The new dog breed classification App 🐶🐶🐶
+# Doggos-101 - The new dog breed classification App
 
-Our App is available 🐶🐶🐶 [here](https://doggos-101.streamlit.app/) 🐶🐶🐶
+![](https://media.tenor.com/IEgVvrfuB_wAAAAM/dancing-dog.gif)
+
+Our App is available 🐶 [here](https://doggos-101.streamlit.app/) 🐶
 
 This work is part of LeWagon's project week - Data Science batch #1181.
 
