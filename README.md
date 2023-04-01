@@ -53,7 +53,7 @@ The different filters allow the computer to extract the features that characteri
 
 ## Results 📊
 
-The accuracy of our prediction is **85.3%**, which means that in most cases we are able to predict correctly the dog breed.
+The accuracy of our prediction is **85.3%**, which means that in most cases we are able to predict the breed of a dog correctly.
 
 Here are some examples of predictions:
 
