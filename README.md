@@ -57,7 +57,7 @@ The accuracy of our prediction is **85.3%**, which means that in most cases we a
 
 Here are some examples of predictions:
 
-<img src=docs/Labrador.png  width="200" height="350">
+<img src=docs/Labrador.png  width="200">
 
 ![](docs/Labrador.png)    ![](docs/Papillon.png)    ![](docs/Pug.png)
 
