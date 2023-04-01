@@ -1,6 +1,6 @@
 # Doggos-101 - The new dog breed classification App
 
-![](https://i.giphy.com/media/3o752nnUPE7OzLeSVW/giphy.webp)
+![](https://media0.giphy.com/media/ONip6r6SCtpZu/giphy.gif?cid=ecf05e471rmr22enswpoz3le07gztqqjpvzll4nii44o6y6p&rid=giphy.gif&ct=s)
 
 Our App is available 🐶 [here](https://doggos-101.streamlit.app/) 🐶
 
