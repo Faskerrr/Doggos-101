@@ -58,8 +58,8 @@ The accuracy of our prediction is **85.3%**, which means that in most cases we a
 Here are some examples of predictions:
 
 <img src=docs/Labrador.png  width="200">
-
-![](docs/Labrador.png)    ![](docs/Papillon.png)    ![](docs/Pug.png)
+<img src=docs/Papillon.png  width="200">
+<img src=docs/Pug.png  width="200">
 
 Beside the predictions, we also scrapped the information of the [UK Kennel Club website](https://www.thekennelclub.org.uk/) to provide more information about the dog breed.
 Hence together with the prediction, we provide also information about:
