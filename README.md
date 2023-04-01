@@ -1,6 +1,6 @@
 # Doggos-101 - The new dog breed classification App
 
-![](https://media.tenor.com/IEgVvrfuB_wAAAAM/dancing-dog.gif)
+![]([https://media.tenor.com/IEgVvrfuB_wAAAAM/dancing-dog.gif](https://i.giphy.com/media/mukzZ4GlySR3y/giphy.webp))
 
 Our App is available 🐶 [here](https://doggos-101.streamlit.app/) 🐶
 
