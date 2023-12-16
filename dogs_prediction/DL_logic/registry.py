@@ -3,6 +3,7 @@ import os
 from colorama import Fore, Style
 from tensorflow.keras.models import load_model as keras_load_model
 from dogs_prediction.params import *
+from dogs_prediction.DL_logic.utils import LayerScale
 
 def load_latest_model(loading_method = MODEL_TARGET):
 
@@ -82,3 +83,47 @@ def load_selected_model(model_name='inception_v3', loading_method=MODEL_TARGET):
             selected_model = keras_load_model(selected_model_path_to_save, compile=False)
             print("✅ Selected model downloaded from cloud storage")
             return selected_model
+
+def load_convnext_model(model_name='ConvNeXtXLargeNew', loading_method=MODEL_TARGET):
+    '''
+    Function to load a specific model from local disk or Google Cloud Storage.
+    By default, it loads INCEPTION_V3 which had the best performance.
+    Depending on the value set to MODEL_TARGET in params.py.
+    For local loading, it requires to have a folder called "models" in the same directory.
+    Args:
+        model_name: name of the model to load. Default is 'inception_v3'. Can choose between 'inception_v3', 'Resnet_50_epoch'.
+    '''
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    models_dir = os.path.abspath(os.path.join(script_dir, '../..', 'models'))
+
+    if loading_method == "local":
+        print(Fore.BLUE + f"\nLoad model '{model_name}' from local registry..." + Style.RESET_ALL)
+        model_path = os.path.join(models_dir, f"{model_name}.keras")
+        if not os.path.exists(model_path):
+            print(f"\n❌ No model with name '{model_name}' found in local models directory")
+            return None
+        else:
+            model = keras_load_model(model_path, compile=False, custom_objects={"LayerScale": LayerScale})
+            print("✅ Model loaded from local")
+            return model
+
+    # elif loading_method == "gcp":
+    #     print(Fore.BLUE + f"\nLoad model '{model_name}' from GCS..." + Style.RESET_ALL)
+    #     from google.cloud import storage
+    #     client = storage.Client()
+    #     blobs = list(client.get_bucket(BUCKET_NAME).list_blobs(prefix="model"))
+    #     print(blobs)
+    #     selected_blob = None
+    #     for blob in blobs:
+    #         if blob.name.endswith(f"{model_name}.h5"):
+    #             selected_blob = blob
+    #             break
+    #     if selected_blob is None:
+    #         print(f"\n❌ No model with name '{model_name}' found on GCS bucket {BUCKET_NAME}")
+    #         return None
+    #     else:
+    #         selected_model_path_to_save = os.path.join(models_dir,'..' ,selected_blob.name)
+    #         selected_blob.download_to_filename(selected_model_path_to_save)
+    #         selected_model = keras_load_model(selected_model_path_to_save, compile=False)
+    #         print("✅ Selected model downloaded from cloud storage")
+    #         return selected_model
