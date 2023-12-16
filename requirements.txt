@@ -20,7 +20,7 @@ pyarrow
 # tensorflow-macos==2.10.0; sys_platform == 'darwin' and 'ARM' in platform_version # Mac M-chips
 # tensorflow==2.10.0; sys_platform == 'darwin' and 'ARM' not in platform_version # Mac Intel chips
 # tensorflow==2.10.0; sys_platform != 'darwin' # Windows & Ubuntu Intel chips
-
+tensorflow==2.10.0
 # prevent bq 3+ db-dtypes package error when running training from bq
 
 #mlflow==2.1.1
